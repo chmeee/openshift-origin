@@ -441,10 +441,10 @@ new_nodes
 [OSEv3:vars]
 ansible_ssh_user=$SUDOUSER
 ansible_become=yes
-containerized=true
 openshift_install_examples=true
 openshift_deployment_type=origin
-openshift_release=v3.7
+openshift_release=v3.7.2
+containerized=true
 docker_udev_workaround=True
 openshift_use_dnsmasq=True
 openshift_master_default_subdomain=$ROUTING
