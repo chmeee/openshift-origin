@@ -104,7 +104,7 @@ cat > /home/${SUDOUSER}/assignclusteradminrights.yml <<EOF
     description: "Make user cluster admin"
   tasks:
   - name: make OpenShift user cluster admin
-    shell: "oadm policy add-cluster-role-to-user cluster-admin {{ lookup('env','SUDOUSER') }} --config=/etc/origin/master/admin.kubeconfig"
+    shell: "/usr/local/bin/oadm policy add-cluster-role-to-user cluster-admin {{ lookup('env','SUDOUSER') }} --config=/etc/origin/master/admin.kubeconfig"
 EOF
 
 
@@ -124,7 +124,7 @@ cat > /home/${SUDOUSER}/dockerregistry.yml <<EOF
     description: "Set registry to use Azure Storage"
   tasks:
   - name: Configure docker-registry to use Azure Storage
-    shell: oc env dc docker-registry -e REGISTRY_STORAGE=azure -e REGISTRY_STORAGE_AZURE_ACCOUNTNAME=$REGISTRYSA -e REGISTRY_STORAGE_AZURE_ACCOUNTKEY=$ACCOUNTKEY -e REGISTRY_STORAGE_AZURE_CONTAINER=registry -e REGISTRY_STORAGE_AZURE_REALM=core.usgovcloudapi.net
+    shell: /usr/local/bin/oc env dc docker-registry -e REGISTRY_STORAGE=azure -e REGISTRY_STORAGE_AZURE_ACCOUNTNAME=$REGISTRYSA -e REGISTRY_STORAGE_AZURE_ACCOUNTKEY=$ACCOUNTKEY -e REGISTRY_STORAGE_AZURE_CONTAINER=registry -e REGISTRY_STORAGE_AZURE_REALM=core.usgovcloudapi.net
 EOF
 
 export CLOUDNAME="AzureUSGovernmentCloud"
@@ -141,7 +141,7 @@ cat > /home/${SUDOUSER}/dockerregistry.yml <<EOF
     description: "Set registry to use Azure Storage"
   tasks:
   - name: Configure docker-registry to use Azure Storage
-    shell: oc env dc docker-registry -e REGISTRY_STORAGE=azure -e REGISTRY_STORAGE_AZURE_ACCOUNTNAME=$REGISTRYSA -e REGISTRY_STORAGE_AZURE_ACCOUNTKEY=$ACCOUNTKEY -e REGISTRY_STORAGE_AZURE_CONTAINER=registry
+    shell: /usr/local/bin/oc env dc docker-registry -e REGISTRY_STORAGE=azure -e REGISTRY_STORAGE_AZURE_ACCOUNTNAME=$REGISTRYSA -e REGISTRY_STORAGE_AZURE_ACCOUNTKEY=$ACCOUNTKEY -e REGISTRY_STORAGE_AZURE_CONTAINER=registry
 EOF
 
 export CLOUDNAME="AzurePublicCloud"
@@ -161,11 +161,11 @@ cat > /home/${SUDOUSER}/configurestorageclass.yml <<EOF
     storage: "{{ lookup('env','STORAGEKIND') }}"
   tasks:
   - name: Create unmanaged storage class
-    shell: oc create -f /home/{{ lookup('env','SUDOUSER') }}/scunmanaged.yml
+    shell: /usr/local/bin/oc create -f /home/{{ lookup('env','SUDOUSER') }}/scunmanaged.yml
     when: storage == 'unmanaged'
 
   - name: Create managed storage class
-    shell: oc create -f /home/{{ lookup('env','SUDOUSER') }}/scmanaged.yml
+    shell: /usr/local/bin/oc create -f /home/{{ lookup('env','SUDOUSER') }}/scmanaged.yml
     when: storage == 'managed'
 EOF
 
@@ -389,7 +389,7 @@ cat > /home/${SUDOUSER}/masternonschedulable.yml <<EOF
     description: "Set masters as non-schedulable"
   tasks:
   - name: set masters as unschedulable
-    command: oadm manage-node {{inventory_hostname}} --schedulable=false
+    command: /usr/local/bin/oadm manage-node {{inventory_hostname}} --schedulable=false
 EOF
 
 # Create Master nodes grouping
@@ -636,8 +636,8 @@ then
 	echo $(date) "- Sleep for 20"
 	
 	sleep 20
-	runuser -l $SUDOUSER -c  "oc label nodes $MASTER-0 openshift-infra=apiserver --overwrite=true"	
-	runuser -l $SUDOUSER -c  "oc label nodes --all logging-infra-fluentd=true logging=true"
+	runuser -l $SUDOUSER -c  "/usr/local/bin/oc label nodes $MASTER-0 openshift-infra=apiserver --overwrite=true"	
+	runuser -l $SUDOUSER -c  "/usr/local/bin/oc label nodes --all logging-infra-fluentd=true logging=true"
 
 	runuser -l $SUDOUSER -c  "ansible all -b  -m service -a 'name=openvswitch state=restarted' "
 
