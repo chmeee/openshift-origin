@@ -458,6 +458,7 @@ openshift_disable_check=disk_availability,memory_availability
 # default selectors for router and registry services
 openshift_router_selector='region=infra'
 openshift_registry_selector='region=infra'
+openshift_disable_check=docker_image_availability,docker_storage,disk_availability
 
 $HAMODE
 openshift_master_cluster_hostname=$MASTERPUBLICIPHOSTNAME
