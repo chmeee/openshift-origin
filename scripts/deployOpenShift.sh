@@ -459,6 +459,7 @@ openshift_disable_check=disk_availability,memory_availability
 openshift_router_selector='region=infra'
 openshift_registry_selector='region=infra'
 openshift_disable_check=docker_image_availability,docker_storage,disk_availability
+openshift_check_min_host_memory_gb=2
 
 $HAMODE
 openshift_master_cluster_hostname=$MASTERPUBLICIPHOSTNAME
