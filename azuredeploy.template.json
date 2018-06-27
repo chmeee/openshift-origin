@@ -27,7 +27,7 @@
 			"value": 1
 		},
 		"nodeInstanceCount": {
-			"value": 2
+			"value": NODECOUNT
 		},
 		"dataDiskSize": {
 			"value": 128
@@ -36,7 +36,7 @@
 			"value": "origin"
 		},
 		"openshiftPassword": {
-			"value": "GhicMur&Shrab4quamda"
+			"value": "PASSWORD"
 		},
 		"enableMetrics": {
 			"value": "false"
@@ -48,25 +48,25 @@
 			"value": "false"
 		},
 		"sshPublicKey": {
-			"value": "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/q6JQvwvH/ttAsaBthkrJ+ryK11IKFMeBe+kgUanoHqE5hhJNeP7gCSYRrxCkXoO9RSQOervi//zKia14CZyrHIXyRVU/uQF4Tp0pF37kyYls4uLghfAlO8OxEc7SMsmtAwZrPAuWBOtm4FVLbMLUSZZHKN5GrIdhO14npPn50303+eOYkyHQz1RrSMAvA5m2Rp9iggbewE6uCC8LaXlYrNmdUSYciIfArEkgUT2UhL5w2EaJTDhxWEPDbJ2IW9XS0ixCoG00pxtlFGIQCwjhiOOxvdBvG2Brr2K6MEgauOUDqajEtCNazaJsqS1sSYYIPld+lyQwFv3tR5xz7PBv"
+			"value": "SSHPUBLIC_KEY"
 		},
 		"keyVaultResourceGroup": {
-			"value": "openshift-origin"
+			"value": "KEYVAULT_RG"
 		},
 		"keyVaultName": {
-			"value": "origin-vault"
+			"value": "KEYVAULT_NAME"
 		},
 		"keyVaultSecret": {
-			"value": "openshift-key"
+			"value": "KEYVAULT_SECRET"
 		},
 		"enableAzure": {
 			"value": "false"
 		},
 		"aadClientId": {
-			"value": "37259c89-7071-4bcb-bc06-73e8f40869c8"
+			"value": "AADCLIENT_ID"
 		},
 		"aadClientSecret": {
-			"value": "0367d2c4-1dfc-4291-b547-f8ef9cecce98"
+			"value": "AADCLIENT_SECRET"
 		},
 		"defaultSubDomainType": {
 			"value": "nipio"
