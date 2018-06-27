@@ -1,3 +1,10 @@
+This is a fork for release 3.7.
+
+The main changes are:
+
+  * Automated scripts to configure all the requirements
+  * Modified deployOpenShift.sh to install OpenShift in containerized mode
+
 # OpenShift Origin Deployment Template - Release 3.7
 
 Bookmark [aka.ms/OpenShift](http://aka.ms/OpenShift) for future reference.
