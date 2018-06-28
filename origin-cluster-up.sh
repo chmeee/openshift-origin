@@ -21,6 +21,11 @@ KEYVAULT_NAME=$AZURE_RG-vault
 KEYVAULT_SECRET=$AZURE_RG-key
 SSHKEY_NAME=origin-ssh-key
 
+if [[ $AADCLIENT_ID == "xxxxx" || $AADCLIENT_SECRET == "xxxxx" ]]; then
+  echo "Error: Before running this script please edit it to set the AADCLIENT_ID and AADCLIENT_SECRET variables"
+  exit 1
+fi
+
 if [[ ! -f origin-ssh-key ]]; then
   echo "##"
   echo "## Creating a new ssh key"
@@ -37,9 +42,10 @@ az group create -n $KEYVAULT_RG -l $AZURE_LOC
 az keyvault create -n $KEYVAULT_NAME -g $KEYVAULT_RG -l $AZURE_LOC --enabled-for-template-deployment true
 az keyvault secret set --vault-name $KEYVAULT_NAME -n $KEYVAULT_SECRET --file $SSHKEY_NAME
 
+if [[ $? != 0 ]]; then echo "Error: Creating a new keyvault and adding the ssh key failed"; exit $?; fi
 
 echo "##"
-echo "## Generating the Ansible inventory from the template"
+echo "## Generating the azuredeploy.parameters.json file from the template"
 echo "##"
 sed -e "s#NODECOUNT#$NODECOUNT#;
 	s#AADCLIENT_ID#$AADCLIENT_ID#;
@@ -50,11 +56,15 @@ sed -e "s#NODECOUNT#$NODECOUNT#;
 	s#KEYVAULT_SECRET#$KEYVAULT_SECRET#;
 	s#SSHPUBLIC_KEY#$SSHPUBLIC_KEY#" azuredeploy.template.json > azuredeploy.parameters.json
 
+if [[ $? != 0 ]]; then echo "Error: Generating the azuredeploy.parameters.json file failed"; exit $?; fi
+
 echo "##"
 echo "## Launching the cluster deployment"
 echo "##"
 az group create --name $AZURE_RG --location $AZURE_LOC
 az group deployment create --resource-group $AZURE_RG --template-file azuredeploy.json --parameters @azuredeploy.parameters.json --no-wait 
+
+if [[ $? != 0 ]]; then echo "Error: Launching the cluster deployment failed"; exit $?; fi
 
 echo "## Deployment has launched and will take around 30min. to finish"
 echo "## Please monitor your deployment on the Azure portal on: Resource groups > $AZURE_RG > Deployments > azuredeploy"
