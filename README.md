@@ -1,3 +1,5 @@
+This is a fork only for [release 3.7](https://github.com/chmeee/openshift-origin/tree/release-3.7).
+
 # OpenShift Origin Deployment Template
 
 ## NOTE: Structural change to Repo
