@@ -25,7 +25,7 @@ yum -y update --exclude=WALinuxAgent
 if hostname -f|grep -- "-0" >/dev/null
 then
    echo $(date) " - Installing Ansible, pyOpenSSL and python-passlib"
-   yum -y --enablerepo=epel install ansible pyOpenSSL python-passlib
+   yum -y --enablerepo=epel install ansible-2.4.2.0-2.el7 pyOpenSSL python-passlib
 fi
 
 # Install java to support metrics
