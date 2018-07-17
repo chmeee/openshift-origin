@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+## Load variables from config file
 source origin-cluster.conf
 
 ##
